@@ -2,6 +2,8 @@
 
 import { useDropzone } from "react-dropzone";
 import { useCallback, useState } from "react";
+import { UploadIcon } from "@/icons/UploadIcon";
+import { DropzonePreview } from "./DropzonePreview";
 
 export function Dropzone() {
     const [files, setFiles] = useState<File | null>(null);
@@ -17,14 +19,9 @@ export function Dropzone() {
         accept: {
             "image/*": [
                 ".png",
-                ".gif",
                 ".jpeg",
-                ".tif",
-                ".tiff",
                 ".jpg",
-                ".avif",
                 ".webp",
-                ".bmp",
             ],
         },
     });
@@ -33,7 +30,7 @@ export function Dropzone() {
         <>
             <div
                 {...getRootProps()}
-                className={`flex flex-col justify-center items-center w-80 h-60 p-8 rounded-lg border-dashed border-2 hover:border-gray-300 transition-all
+                className={`flex flex-col justify-center items-center cursor-pointer w-80 h-60 p-8 rounded-lg border-dashed border hover:border-gray-300 transition-all
       ${isDragActive ? "border-blue-500" : "border-gray-400"}`}
             >
                 <input {...getInputProps()} />
@@ -54,16 +51,7 @@ export function Dropzone() {
                     </>
                 )}
             </div>
-
-            {previewImg && files && (
-                <div className="border rounded-lg m-4 p-2 bg-white border-gray-300 flex flex-row">
-                    <img className="rounded-lg w-36" src={previewImg} width="200px" />
-                    <div className="flex flex-col ml-2 justify-center">
-                        <p className="font-semibold">{files.name}</p>
-                        <p>{Math.round(files.size / 1000000)} MB</p>
-                    </div>
-                </div>
-            )}
+            <DropzonePreview previewImg={previewImg} files={files} />
         </>
     );
 }
