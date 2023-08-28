@@ -27,10 +27,10 @@ export function Dropzone() {
     });
 
     return (
-        <div className="w-80 h-min">
+        <div className="w-1/3 h-min">
             <div
                 {...getRootProps()}
-                className={`flex flex-col justify-center items-center cursor-pointer w-80 h-60 p-8 rounded-lg border-dashed border hover:border-gray-300 transition-all
+                className={`flex flex-col justify-center items-center cursor-pointer h-3/4 p-8 rounded-lg border-dashed border hover:border-gray-300 transition-all
       ${isDragActive ? "border-blue-500" : "border-gray-400"}`}
             >
                 <input {...getInputProps()} />
@@ -38,7 +38,7 @@ export function Dropzone() {
                     Upload File
                 </h1>
                 {isDragActive ? (
-                    <p>Drop the files here ...</p>
+                    <p className="font-sm text-gray-400 text-center">Drop the files here ...</p>
                 ) : (
                     <>
                         <p className="font-sm text-gray-400 text-center">
