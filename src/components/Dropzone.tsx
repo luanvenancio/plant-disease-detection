@@ -27,7 +27,7 @@ export function Dropzone() {
     });
 
     return (
-        <>
+        <div className="w-80 h-min">
             <div
                 {...getRootProps()}
                 className={`flex flex-col justify-center items-center cursor-pointer w-80 h-60 p-8 rounded-lg border-dashed border hover:border-gray-300 transition-all
@@ -46,12 +46,12 @@ export function Dropzone() {
 
                         </p>
                         <p className="font-sm text-gray-400 text-center">
-                            Supported formats: JPG, PNG, JPGEG, WEBP
+                            Supported formats: JPG, PNG, JPEG, WEBP
                         </p>
                     </>
                 )}
             </div>
             <DropzonePreview previewImg={previewImg} files={files} />
-        </>
+        </div>
     );
 }
