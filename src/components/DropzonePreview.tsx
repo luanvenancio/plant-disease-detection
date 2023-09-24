@@ -1,5 +1,5 @@
 interface DropzonePreviewProps {
-    previewImg: string;
+    previewImg: string | null;
     files?: File | null;
 }
 
@@ -7,7 +7,7 @@ export function DropzonePreview({ previewImg, files }: DropzonePreviewProps) {
     return (
         <>
             {previewImg && files && (
-                <div className="border rounded-lg my-6 p-4 bg-white border-gray-300 flex flex-row h-2/5">
+                <div className="border rounded-lg my-6 p-4 bg-white border-gray-300 flex flex-row h-full">
                     <img className="rounded-lg w-1/4" src={previewImg} width="200px" />
                     <div className="flex flex-col px-4 justify-center w-3/4">
                         <p className="text-ellipsis overflow-hidden font-semibold">{files.name}</p>
