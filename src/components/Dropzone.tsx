@@ -13,9 +13,15 @@ type responseType = {
     label: string;
 }
 
+type plantResult = {
+    diagnosis: string;
+    plantName: string;
+    score: number;
+}
+
 export function Dropzone() {
     const [files, setFiles] = useState<File | null>(null);
-    const [result, setResult] = useState<responseType>();
+    const [result, setResult] = useState<plantResult>();
     //const [previewImg, setPreviewImg] = useState("");
 
     const onDrop = useCallback((files: File[]) => {
@@ -52,12 +58,22 @@ export function Dropzone() {
         );
 
         if (!response.ok) {
-            throw new Error("Failed");
+            throw new Error("Failed Code: " + response.status);
         }
 
-        const r = await response.json();
-        console.log(r[0]);
-        setResult(r[0]);
+        const data = await response.json();
+
+        const [first, ...rest] = data[0].label.split("_");
+
+        const plantAnalysis = {
+            diagnosis: rest.join(" "),
+            plantName: first,
+            score: data[0].score.toFixed(4),
+        }
+
+        console.log(data[0]);
+
+        setResult(plantAnalysis);
 
     }
 
@@ -98,7 +114,12 @@ export function Dropzone() {
                     </>
                 ) : (
                     <>
-                        {result && <p className="font-sm text-gray-400 text-center">{result.label}</p>}
+                        {result &&
+                            <>
+                                <h1 className="font-bold font-xl text-white text-xl text-center mb-4 mt-2">{result.diagnosis} </h1>
+                                <p className="font-sm text-gray-400 text-center">{result.plantName} - {result.score}</p>
+                            </>
+                        }
                         <DropzonePreview previewImg={previewImg} files={files} />
                     </>
                 )}
