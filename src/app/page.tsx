@@ -8,12 +8,20 @@ import Modal from "@/components/Modal";
 import { Plants } from "./plants/columns";
 import DataTablePage from "./plants/page";
 
+type imgProps = {
+  handleImg: (previewImg: File) => void;
+}
+
 export default function Home() {
   const [img, setImg] = useState("");
   const [result, setResult] = useState<Plants>();
 
-  const handleImg = (previewImg: string) => {
-    setImg(previewImg);
+  const handleImg = (previewImg: File) => {
+    if (!previewImg) {
+      return null
+    }
+
+    setImg(URL.createObjectURL(previewImg))
   }
 
   const handleResult = (result: Plants) => {
