@@ -19,12 +19,10 @@ type DropzoneProps = {
 
 export function Dropzone({ handleFiles }: DropzoneProps) {
     const [files, setFiles] = useState<File | null>(null);
-    //const [previewImg, setPreviewImg] = useState("");
 
     const onDrop = useCallback((files: File[]) => {
         setFiles(files[0]);
         handleFiles(files[0]);
-        //setPreviewImg(URL.createObjectURL(files[0]));
     }, []);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -51,7 +49,7 @@ export function Dropzone({ handleFiles }: DropzoneProps) {
         <div className="flex flex-col space-y-4 pt-4">
             <div
                 {...getRootProps()}
-                className={`grid grid-rows-2 items-center gap-4 cursor-pointer h-3/4 p-8 rounded-lg border-dashed border hover:border-gray-300 transition-all
+                className={`grid grid-rows-2 items-center text-center gap-4 cursor-pointer h-3/4 p-8 rounded-lg border-dashed border hover:border-gray-300 transition-all
       ${isDragActive ? "border-blue-500" : "border-gray-400"}`}
             >
                 <input {...getInputProps()} />
@@ -60,11 +58,11 @@ export function Dropzone({ handleFiles }: DropzoneProps) {
                         <p className="text-md font-medium text-gray-400 text-center">Drop the files here ...</p>
                     ) : (
                         <>
-                            <p className="text-md font-medium text-gray-400 text-center">
+                            <p className="text-sm font-medium leading-none">
                                 Drag and drop your files here
 
                             </p>
-                            <p className="text-sm text-gray-400 text-center">
+                            <p className="text-sm text-muted-foreground">
                                 Supported formats: JPG, PNG, JPEG, WEBP
                             </p>
                         </>
