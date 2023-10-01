@@ -12,11 +12,11 @@ import {
 } from "@/components/ui/dialog"
 import { Dropzone } from "./Dropzone"
 
-const API_TOKEN = process.env.HUGGINFACE_API_KEY;
+const API_TOKEN = process.env.NEXT_PUBLIC_HUGGINFACE_API_KEY;
 
 type ModalProps = {
     handleResult: (result: Plants) => void;
-    handleImg: (previewImg: string) => void;
+    handleImg: (previewImg: File) => void;
 }
 
 export default function Modal({ handleResult, handleImg }: ModalProps) {
@@ -25,8 +25,8 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
     const [files, setFiles] = useState<File | null>(null);
     const [open, setOpen] = useState(false);
 
-    const handleFiles = (file: any) => {
-        setFiles(file);
+    const handleFiles = (files: any) => {
+        setFiles(files);
     }
 
     const handleClick = async (e: any) => {
@@ -67,6 +67,7 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
 
         setResult(plantAnalysis);
         handleResult(plantAnalysis);
+        handleImg(files);
         setOpen(false);
 
     }
