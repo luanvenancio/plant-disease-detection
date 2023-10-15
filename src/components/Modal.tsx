@@ -81,7 +81,7 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
                 <DialogHeader>
                     <DialogTitle>Upload File</DialogTitle>
                     <DialogDescription>
-                        Make changes to your profile here. Click save when you're done.
+                        Upload a photo of your plant to help us identify any diseases or pests.
                     </DialogDescription>
                 </DialogHeader>
                 <Dropzone handleFiles={handleFiles} />
