@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Card, CardContent } from "./ui/card";
 
 interface DropzonePreviewProps {
@@ -20,7 +21,7 @@ export function DropzonePreview({ previewImg, files }: DropzonePreviewProps) {
         <>
             {previewImg && files && (
                 <Card className="flex flex-row border border-gray-300 rounded-lg py-2 pl-2">
-                    <img className="rounded-lg w-1/4" src={previewImg} width="200px" />
+                    <Image alt="Plant Image preview" src={previewImg} width={100} height={100} style={{ borderRadius: '0.5rem' }} />
                     <CardContent className="w-full flex flex-col px-4 justify-center">
                         <p className="text-base text-ellipsis overflow-hidden font-medium">{files.name}</p>
 

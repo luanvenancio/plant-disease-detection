@@ -17,12 +17,37 @@ type DropzoneProps = {
     handleFiles: (files: any) => void;
 }
 
+import Resizer from "react-image-file-resizer";
+
+const resizeFile = (file: File) => {
+    return new Promise((resolve) => {
+        Resizer.imageFileResizer(
+            file,
+            200,
+            200,
+            "JPEG",
+            100,
+            0,
+            (uri) => {
+                resolve(uri);
+            },
+            "file",
+        );
+    });
+};
+
 export function Dropzone({ handleFiles }: DropzoneProps) {
     const [files, setFiles] = useState<File | null>(null);
+    const [prevImg, setPrevImg] = useState<File | null>(null);
 
-    const onDrop = useCallback((files: File[]) => {
-        setFiles(files[0]);
-        handleFiles(files[0]);
+    const onDrop = useCallback(async (files: File[]) => {
+        const resizedImage: File = await resizeFile(files[0]) as File;
+        console.log(resizedImage);
+        console.log(files[0]);
+
+        setPrevImg(files[0]);
+        setFiles(resizedImage);
+        handleFiles(resizedImage);
     }, []);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -38,12 +63,12 @@ export function Dropzone({ handleFiles }: DropzoneProps) {
     });
 
     const previewImg = useMemo(() => {
-        if (!files) {
+        if (!prevImg) {
             return null
         }
 
-        return URL.createObjectURL(files)
-    }, [files])
+        return URL.createObjectURL(prevImg)
+    }, [prevImg])
 
     return (
         <div className="flex flex-col space-y-4 pt-4">
