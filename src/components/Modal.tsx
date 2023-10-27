@@ -9,8 +9,9 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
-import { Dropzone } from "./Dropzone"
+} from "@/components/ui/dialog";
+import Resizer from "react-image-file-resizer";
+import { Dropzone } from "./Dropzone";
 
 const API_TOKEN = process.env.NEXT_PUBLIC_HUGGINFACE_API_KEY;
 
@@ -86,7 +87,7 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
                 </DialogHeader>
                 <Dropzone handleFiles={handleFiles} />
                 <DialogFooter>
-                    <Button className="bg-backgroung" onClick={handleClick} type="submit">Analyze</Button>
+                    <Button className="bg-violet-500 text-white" onClick={handleClick} type="submit">Analyze</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
