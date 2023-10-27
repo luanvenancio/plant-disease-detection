@@ -20,7 +20,7 @@ export function DropzonePreview({ previewImg, files }: DropzonePreviewProps) {
     return (
         <>
             {previewImg && files && (
-                <Card className="flex flex-row border border-gray-300 rounded-lg py-2 pl-2">
+                <Card className="flex flex-row border bg-card text-card-foreground shadow py-2 pl-2">
                     <Image alt="Plant Image preview" src={previewImg} width={100} height={100} style={{ borderRadius: '0.5rem' }} />
                     <CardContent className="w-full flex flex-col px-4 justify-center">
                         <p className="text-base text-ellipsis overflow-hidden font-medium">{files.name}</p>

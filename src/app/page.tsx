@@ -1,17 +1,11 @@
 "use client";
-import { InputFile } from "@/components/InputFile";
-import { Input } from "@/components/ui/input";
 import { ChangeEvent, useMemo, useState } from "react";
-import { Dropzone } from "@/components/Dropzone";
 import useSWR from "swr";
 import Modal from "@/components/Modal";
-import DataTablePage from "./plants/page";
-import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { ResultCard } from "@/components/ResultCard";
-
-type imgProps = {
-  handleImg: (previewImg: File) => void;
-}
+import Image from "next/image";
+import { ModeToggle } from "@/components/ui/mode-toggle";
+import { Navbar } from "@/components/Navbar";
 
 export type Plants = {
   name: string
@@ -39,13 +33,62 @@ export default function Home() {
 
   return (
     <main className="w-screen h-screen">
-      <div className="flex flex-col items-center justify-center h-screen w-screen">
-        <Modal handleResult={handleResult} handleImg={handleImg} />
-        <img className="rounded-lg w-1/4 my-6" src={img} width="200px" />
-        {result &&
-          <ResultCard {...result} />
-        }
-      </div>
+
+      {!img &&
+        (
+          <>
+
+            <Navbar>
+              <Modal
+                handleResult={handleResult}
+                handleImg={handleImg}
+              />
+            </Navbar>
+            <div className="flex flex-col items-center justify-center w-screen h-screen">
+              <h2 className="text-md font-semibold">Diagnose Your Plant</h2>
+              <p className="text-sm text-muted font-medium leading-none mt-4 mb-6">Upload a photo of your plant to help us identify any diseases or pests.</p>
+
+              <Modal
+                handleResult={handleResult}
+                handleImg={handleImg}
+              />
+            </div>
+          </>
+        )
+      }
+
+      {img && result &&
+        (
+          <>
+            <Navbar>
+              <Modal
+                handleResult={handleResult}
+                handleImg={handleImg}
+              />
+            </Navbar>
+
+            <div className="flex flex-col items-center justify-center w-full h-full">
+
+              <h1 className="text-3xl md:text-5xl font-display tracking-tight font-bold mb-8">Result</h1>
+
+              <Image
+                alt="Plant Image preview"
+                src={img}
+                width={200}
+                height={200}
+                style={{
+                  borderRadius: '0.5rem',
+                  marginTop: '1.5rem',
+                  marginBottom: '1.5rem'
+                }}
+              />
+
+              <ResultCard {...result} />
+
+            </div>
+          </>
+        )
+      }
     </main>
   );
 }

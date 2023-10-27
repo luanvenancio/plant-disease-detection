@@ -18,6 +18,7 @@ export function ResultCard({ name, result, accuracy }: Plants) {
                     <p className="text-md font-semibold">{result}</p>
                 </div>
                 <div>
+                    <p className="text-sm font-medium">Reliability</p>
                     <p className="text-sm">{accuracy}</p>
                 </div>
             </div>

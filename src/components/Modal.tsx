@@ -10,8 +10,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import Resizer from "react-image-file-resizer";
 import { Dropzone } from "./Dropzone";
+import { PlusIcon } from "@radix-ui/react-icons";
 
 const API_TOKEN = process.env.NEXT_PUBLIC_HUGGINFACE_API_KEY;
 
@@ -76,7 +76,7 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline">Detect plant disease</Button>
+                <Button className="bg-violet-300 text-primary dark:bg-violet-500"> <PlusIcon className="mr-1" /> Detect plant disease</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
@@ -87,7 +87,7 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
                 </DialogHeader>
                 <Dropzone handleFiles={handleFiles} />
                 <DialogFooter>
-                    <Button className="bg-violet-500 text-white" onClick={handleClick} type="submit">Analyze</Button>
+                    <Button className="bg-violet-300 text-primary dark:bg-violet-500" onClick={handleClick} type="submit"> Analyze</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
