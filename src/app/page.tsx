@@ -32,18 +32,14 @@ export default function Home() {
   }
 
   return (
-    <main className="w-screen h-screen">
+    <main className="w-screen min-h-screen">
 
       {!img &&
         (
           <>
 
-            <Navbar>
-              <Modal
-                handleResult={handleResult}
-                handleImg={handleImg}
-              />
-            </Navbar>
+            <Navbar />
+
             <div className="flex flex-col items-center justify-center w-screen h-screen">
               <h2 className="text-md font-semibold">Diagnose Your Plant</h2>
               <p className="text-sm text-muted font-medium leading-none mt-4 mb-6">Upload a photo of your plant to help us identify any diseases or pests.</p>
@@ -67,23 +63,9 @@ export default function Home() {
               />
             </Navbar>
 
-            <div className="flex flex-col items-center justify-center w-full h-full">
+            <div className="flex flex-col items-center justify-center w-screen h-screen">
 
-              <h1 className="text-3xl md:text-5xl font-display tracking-tight font-bold mb-8">Result</h1>
-
-              <Image
-                alt="Plant Image preview"
-                src={img}
-                width={200}
-                height={200}
-                style={{
-                  borderRadius: '0.5rem',
-                  marginTop: '1.5rem',
-                  marginBottom: '1.5rem'
-                }}
-              />
-
-              <ResultCard {...result} />
+              <ResultCard result={result} img={img} />
 
             </div>
           </>
