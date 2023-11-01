@@ -3,7 +3,7 @@ import { ModeToggle } from "./ui/mode-toggle";
 export function Navbar({ children }: any) {
 
     return (
-        <nav className="border-b border-muted-foreground">
+        <nav className="border-b dark:border-zinc-700">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                 <div className="relative flex h-16 items-center justify-between">
                     <a href="#" className="text-primary rounded-md px-3 py-2 text-md font-medium" aria-current="page">Plant Disease Detection</a>

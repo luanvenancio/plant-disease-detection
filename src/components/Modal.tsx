@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { Plants } from "@/app/plants/columns";
+import { Plants } from "@/app/util/PlantType";
 import {
     Dialog,
     DialogContent,
@@ -46,6 +46,7 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
             }
         );
 
+
         if (!response.ok) {
             throw new Error("Failed Code: " + response.status);
         }
@@ -66,17 +67,17 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
 
         console.log(data[0]);
 
+        setOpen(false);
         setResult(plantAnalysis);
         handleResult(plantAnalysis);
         handleImg(files);
-        setOpen(false);
 
     }
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-violet-300 text-primary dark:bg-violet-500"> <PlusIcon className="mr-1" /> Detect plant disease</Button>
+                <Button className="text-white bg-violet-600"> <PlusIcon className="mr-1" /> Detect plant disease</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
@@ -87,7 +88,7 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
                 </DialogHeader>
                 <Dropzone handleFiles={handleFiles} />
                 <DialogFooter>
-                    <Button className="bg-violet-300 text-primary dark:bg-violet-500" onClick={handleClick} type="submit"> Analyze</Button>
+                    <Button className="text-white bg-violet-600" onClick={handleClick} type="submit"> Analyze</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
