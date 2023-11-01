@@ -23,8 +23,8 @@ const resizeFile = (file: File) => {
     return new Promise((resolve) => {
         Resizer.imageFileResizer(
             file,
-            200,
-            200,
+            256,
+            256,
             "JPEG",
             100,
             0,
@@ -45,7 +45,7 @@ export function Dropzone({ handleFiles }: DropzoneProps) {
         console.log(resizedImage);
         console.log(files[0]);
 
-        setPrevImg(files[0]);
+        setPrevImg(resizedImage);
         setFiles(resizedImage);
         handleFiles(resizedImage);
     }, []);
