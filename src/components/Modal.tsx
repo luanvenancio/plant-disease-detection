@@ -20,6 +20,8 @@ type ModalProps = {
     handleImg: (previewImg: File) => void;
 }
 
+
+
 export default function Modal({ handleResult, handleImg }: ModalProps) {
 
     const [result, setResult] = useState<Plants>();
@@ -36,6 +38,7 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
         if (!files) {
             return null;
         }
+
 
         const response = await fetch(
             "https://api-inference.huggingface.co/models/surgeonwz/plant-village",
