@@ -1,10 +1,9 @@
 "use client";
+
 import { ChangeEvent, useMemo, useState } from "react";
 import useSWR from "swr";
 import Modal from "@/components/Modal";
 import { ResultCard } from "@/components/ResultCard";
-import Image from "next/image";
-import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Navbar } from "@/components/Navbar";
 
 export type Plants = {
@@ -32,23 +31,24 @@ export default function Home() {
   }
 
   return (
-    <main className="w-screen min-h-screen">
+    <>
 
       {!img &&
         (
           <>
 
             <Navbar />
+            <main className="min-h-screen">
+              <div className="flex flex-col items-center justify-center h-screen">
+                <h2 className="text-md font-semibold">Diagnose Your Plant</h2>
+                <p className="text-sm text-muted font-medium leading-none mt-4 mb-6">Upload a photo of your plant to help us identify any diseases or pests.</p>
 
-            <div className="flex flex-col items-center justify-center w-screen h-screen">
-              <h2 className="text-md font-semibold">Diagnose Your Plant</h2>
-              <p className="text-sm text-muted font-medium leading-none mt-4 mb-6">Upload a photo of your plant to help us identify any diseases or pests.</p>
-
-              <Modal
-                handleResult={handleResult}
-                handleImg={handleImg}
-              />
-            </div>
+                <Modal
+                  handleResult={handleResult}
+                  handleImg={handleImg}
+                />
+              </div>
+            </main>
           </>
         )
       }
@@ -62,15 +62,16 @@ export default function Home() {
                 handleImg={handleImg}
               />
             </Navbar>
+            <main className="w-screen min-h-screen">
+              <div className="flex flex-col items-center justify-center w-screen h-screen">
 
-            <div className="flex flex-col items-center justify-center w-screen h-screen">
+                <ResultCard result={result} img={img} />
 
-              <ResultCard result={result} img={img} />
-
-            </div>
+              </div>
+            </main>
           </>
         )
       }
-    </main>
+    </>
   );
 }

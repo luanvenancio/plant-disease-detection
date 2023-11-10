@@ -16,7 +16,7 @@ type ResultProps = {
 
 export function ResultCard({ result, img }: ResultProps) {
     return (
-        <Card className="w-[512px] border dark:border-zinc-700">
+        <Card className="w-[512px] border dark:bg-zinc-800 dark:border-zinc-700">
             <CardHeader className="border-b dark:border-zinc-700">
                 <CardTitle>Result</CardTitle>
             </CardHeader>
