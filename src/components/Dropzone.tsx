@@ -42,8 +42,8 @@ export function Dropzone({ handleFiles }: DropzoneProps) {
 
     const onDrop = useCallback(async (files: File[]) => {
         const resizedImage: File = await resizeFile(files[0]) as File;
-        console.log(resizedImage);
-        console.log(files[0]);
+        //console.log(resizedImage);
+        //console.log(files[0]);
 
         setPrevImg(resizedImage);
         setFiles(resizedImage);
