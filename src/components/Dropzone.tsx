@@ -95,7 +95,7 @@ export function Dropzone({ handleFiles }: DropzoneProps) {
             </p>
             {previewImg &&
                 <>
-                    <Separator />
+                    <Separator className="dark:bg-zinc-700" />
                     <div className="grid items-center">
                         <DropzonePreview previewImg={previewImg} files={files} />
                     </div>

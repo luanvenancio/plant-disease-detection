@@ -98,9 +98,9 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="text-white bg-violet-600"> <PlusIcon size={20} className="mr-1" /> Detect plant disease</Button>
+                <Button className="text-white bg-violet-600 hover:bg-violet-800"> <PlusIcon size={20} className="mr-1" /> Detect plant disease</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="dark:bg-card sm:max-w-md">
                 <DialogHeader>
                     <DialogTitle>Upload File</DialogTitle>
                     <DialogDescription>
@@ -109,7 +109,7 @@ export default function Modal({ handleResult, handleImg }: ModalProps) {
                 </DialogHeader>
                 <Dropzone handleFiles={handleFiles} />
                 <DialogFooter>
-                    <Button className="text-white bg-violet-600" onClick={handleClick} type="submit"> Analyze</Button>
+                    <Button className="text-white bg-violet-600 hover:bg-violet-800" onClick={handleClick} type="submit"> Analyze</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

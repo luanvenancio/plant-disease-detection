@@ -16,8 +16,8 @@ type ResultProps = {
 
 export function ResultCard({ result, img }: ResultProps) {
     return (
-        <Card className="w-[512px] border dark:bg-zinc-800 dark:border-zinc-700">
-            <CardHeader className="border-b dark:border-zinc-700">
+        <Card className="w-[512px] border bg-card dark:border-border">
+            <CardHeader>
                 <CardTitle>Result</CardTitle>
             </CardHeader>
             <div className="flex justify-center">
@@ -33,7 +33,7 @@ export function ResultCard({ result, img }: ResultProps) {
                     }}
                 />
             </div>
-            <CardContent className="border-t dark:border-zinc-700">
+            <CardContent className="bg-secondary dark:bg-secondary mx-4 mb-4 rounded-lg">
                 <div className="pt-4 flex justify-between items-center w-full">
                     <div>
                         <p className="text-sm font-medium">{result.name}</p>

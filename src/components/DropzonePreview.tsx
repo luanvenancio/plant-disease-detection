@@ -14,7 +14,6 @@ export function DropzonePreview({ previewImg, files }: DropzonePreviewProps) {
                     <Image alt="Plant Image preview" src={previewImg} width={100} height={100} style={{ borderRadius: '0.5rem' }} />
                     <CardContent className="w-full flex flex-col px-4 justify-center">
                         <p className="text-base text-ellipsis overflow-hidden font-medium">{files.name}</p>
-
                         <p className="text-sm text-muted-foreground">{files.size > 1048576 ? `${(files.size / 1048576).toFixed(2)} MB` : `${(files.size / 1024).toFixed(2)} KB`}</p>
                     </CardContent>
                 </Card >

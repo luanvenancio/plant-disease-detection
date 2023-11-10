@@ -41,7 +41,7 @@ export default function Home() {
             <main className="min-h-screen">
               <div className="flex flex-col items-center justify-center h-screen">
                 <h2 className="text-md font-semibold">Diagnose Your Plant</h2>
-                <p className="text-sm text-muted font-medium leading-none mt-4 mb-6">Upload a photo of your plant to help us identify any diseases or pests.</p>
+                <p className="text-sm text-muted-foreground font-medium leading-none mt-4 mb-6">Upload a photo of your plant to help us identify any diseases or pests.</p>
 
                 <Modal
                   handleResult={handleResult}
