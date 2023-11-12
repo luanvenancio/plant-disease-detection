@@ -2,7 +2,6 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FileIcon } from "@/icons/FileIcon";
 import { UploadIcon } from "@/icons/UploadIcon";
 import { useCallback, useState } from "react";
 import { DropzoneState, useDropzone } from "react-dropzone";
@@ -86,7 +85,7 @@ const InputImage = ({ dropzone }: InputProps) => {
   );
 };
 
-const HasFile = ({ file, removeFile }: HasFileProps) => {
+/*const HasFile = ({ file, removeFile }: HasFileProps) => {
   return (
     <div className="w-1/2 h-full rounded-lg border-dashed border-4 border-gray-600 bg-gray-700 flex justify-center items-center">
       <div className="bg-white w-36 rounded-md shadow-md flex gap-3 items-center justify-center">
@@ -102,4 +101,4 @@ const HasFile = ({ file, removeFile }: HasFileProps) => {
       </div>
     </div>
   );
-};
+};*/
