@@ -28,7 +28,6 @@ export function ResultCard({ img }: ResultProps) {
 
     const fetcher = async (url: string) => {
 
-        console.log("entrei");
         const response = await fetch(
             url,
             {
