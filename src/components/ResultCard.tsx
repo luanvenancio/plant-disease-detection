@@ -5,6 +5,7 @@ import { Plants } from "@/app/util/PlantType";
 import { Card } from "./ui/card";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
+import { useToast } from "@/components/ui/use-toast"
 import {
     CardContent,
     CardDescription,
@@ -21,6 +22,7 @@ type ResultProps = {
 export function ResultCard({ img }: ResultProps) {
 
     const [shouldFetch, setShouldFetch] = useState(false);
+    const { toast } = useToast();
 
     useEffect(() => {
         setShouldFetch(true);
@@ -37,7 +39,13 @@ export function ResultCard({ img }: ResultProps) {
             }
         );
 
-        if (!response.ok) {
+        if (response.status === 503) {
+            toast({
+                title: "Uh oh! Something went wrong.",
+                description: "Model is currently loading",
+            })
+        }
+        else if (!response.ok) {
             throw new Error('An error occurred while fetching the data. Code: ' + response.status);
         }
 
@@ -48,7 +56,7 @@ export function ResultCard({ img }: ResultProps) {
 
         const plantAnalysis: Plants = {
             name: first,
-            result: rest.join(" "),
+            diagnosis: rest.join("").replace(/(^\w{1})|(\s+\w{1})/g, (letter: string) => letter.toUpperCase()),
             status: "Success",
             score,
             accuracy: score > 0.7 ? "High" : "Low"
@@ -56,9 +64,12 @@ export function ResultCard({ img }: ResultProps) {
         return plantAnalysis;
     };
 
+
     const { data, error } = useSWR(shouldFetch ? "https://api-inference.huggingface.co/models/surgeonwz/plant-village" : null, fetcher, {
+        shouldRetryOnError: true,
         onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
-            if (error.status === 404) return
+            //if (error.status === 404) return
+            console.log(error.status);
             if (retryCount >= 8) return
             setTimeout(() => revalidate({ retryCount }), 3000)
         },
@@ -93,7 +104,7 @@ export function ResultCard({ img }: ResultProps) {
                         <div className="pt-4 flex justify-between items-center w-full">
                             <div>
                                 <p className="text-sm font-medium">{data.name}</p>
-                                <p className="text-md font-semibold">{data.result}</p>
+                                <p className="text-md font-semibold">{data.diagnosis}</p>
                             </div>
                             <div>
                                 <p className="text-sm font-medium">Reliability</p>

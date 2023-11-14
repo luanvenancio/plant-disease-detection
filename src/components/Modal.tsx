@@ -41,7 +41,7 @@ export default function Modal({ handleImg }: ModalProps) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="text-white bg-violet-600 hover:bg-violet-800"> <PlusIcon size={20} className="mr-1" /> Detect plant disease</Button>
+                <Button className="text-white bg-violet-600 hover:bg-violet-800"> <PlusIcon size={20} className="mr-1" /> Scan Plant</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md rounded-lg dark:bg-card dark:border-border">
                 <DialogHeader>
