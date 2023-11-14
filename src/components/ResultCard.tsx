@@ -44,6 +44,8 @@ export function ResultCard({ img }: ResultProps) {
                 title: "Uh oh! Something went wrong.",
                 description: "Model is currently loading",
             })
+
+            return;
         }
         else if (!response.ok) {
             throw new Error('An error occurred while fetching the data. Code: ' + response.status);
