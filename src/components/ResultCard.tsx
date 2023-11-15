@@ -42,7 +42,7 @@ export function ResultCard({ img }: ResultProps) {
         if (response.status === 503) {
             toast({
                 title: "Uh oh! Something went wrong.",
-                description: "Model is currently loading",
+                description: "Try Again. Model is currently loading...",
             })
 
             return;
