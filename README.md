@@ -1,10 +1,12 @@
 # Plant Disease Detection using Vision Transformers
 <p align="center">
-<img src="https://github.com/luanvenancio/plant-disease-detection/assets/9398249/68de7ad0-356e-4a35-b953-1f4901b9e051" alt="Screenshot of the Home Page" width="80%"/>
+ <img src=https://github.com/luanvenancio/plant-disease-detection/assets/9398249/0183486f-666b-4947-b52e-5c7311483df8 alt="Screenshot of the Home Page" width="80%"/>
 </p>
 
 ## Overview
-This open-source project aims to create a web-based platform for detecting plant diseases using cutting-edge machine learning techniques. The site leverages Vision Transformers (ViTs) for accurate disease identification and provides an intuitive user interface built with ReactJs and NextJs. Additionally, we integrate the Hugging Face API for easy access to pre-trained ViT models. Let’s dive into the details:
+This open-source project aims to create a web-based platform for detecting plant diseases using cutting-edge machine learning techniques. The site leverages Vision Transformers (ViTs) for accurate disease identification and provides an intuitive user interface built with ReactJs and NextJs. Additionally, we integrate the Hugging Face API for easy access to pre-trained ViT models.
+
+[Click Here](https://plant-disease-detection-two.vercel.app/) to go to the site.
 
 ## Features
  1. **Vision Transformer Model (PlantXViT):**
