@@ -10,8 +10,8 @@ This open-source project aims to create a web-based platform for detecting plant
 
 ## Features
  1. **Vision Transformer Model (PlantXViT):**
-     - We’ve trained our own Vision Transformer model specifically for plant disease identification. This model combines the capabilities of traditional convolutional neural networks with the Vision Transformers to efficiently identify a large number of plant diseases for several crops.
-     - Out Model has demonstrated superior performance compared to existing methods on publicly available datasets, achieving high accuracy even under challenging background conditions.
+     - We’ve trained our own Vision Transformer model specifically for plant disease identification. This model combines the capabilities of traditional convolutional neural networks with the Vision Transformers to efficiently identify a large number of plant diseases for several crops. We use the pre-trained Swin Transformer V2 Tiny model from Microsoft. 
+     - Out Model has demonstrated superior performance compared to existing methods on publicly available datasets, achieving high accuracy (99.13) even under challenging background conditions.
 2. **Web Interface:**
     - The site provides an easy-to-use web interface built with ReactJs and NextJs. Users can upload images of plant leaves or other relevant parts to diagnose diseases.
     -  The interface allows users to visualize the prediction results, including the detected disease class and confidence score.
