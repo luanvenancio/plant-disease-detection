@@ -24,7 +24,7 @@ export default function Home() {
           <Modal handleImg={handleImg} handleNewUpload={handleNewUpload} />
         )}
       </Navbar>
-      <main className="flex flex-grow flex-col items-center justify-center p-4">
+      <main className="flex grow flex-col items-center justify-center p-4">
         {img ? (
           <ResultCard img={img.file as File} />
         ) : (

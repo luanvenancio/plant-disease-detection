@@ -150,7 +150,7 @@ export function ResultCard({ img }: { img: File }) {
               transition={customTransition}
               className="flex flex-col items-center gap-6 max-w-lg w-full"
             >
-              <h2 className="text-xl font-medium tracking-normal">
+              <h2 className="text-xl font-semibold tracking-tight">
                 Analysis Result
               </h2>
               <ResultDisplay plantAnalysis={plantAnalysis} img={img} />

@@ -81,7 +81,7 @@ export function FileUpload({ onFilesChange }: FileUploadProps) {
               transition={{ duration: 0.2, ease: "easeOut" }}
             />
             <motion.div
-              className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 to-transparent pt-10"
+              className="absolute bottom-0 left-0 w-full bg-linear-to-t from-black/60 to-transparent pt-10"
               animate={isHovered ? "visible" : "hidden"}
               variants={{
                 hidden: { opacity: 0, y: 10 },
@@ -102,10 +102,10 @@ export function FileUpload({ onFilesChange }: FileUploadProps) {
         ) : (
           <div className="flex flex-col items-center justify-center px-4 py-3 text-center">
             <div
-              className="bg-background mb-2 flex size-full p-2 shrink-0 items-center justify-center rounded-full border border-border"
+              className="bg-background mb-2 flex size-auto p-3 shrink-0 items-center justify-center rounded-full border border-border"
               aria-hidden="true"
             >
-              <ImageIcon className="size-4 opacity-60" />
+              <ImageIcon className="size-4.5 opacity-60" />
             </div>
             <p className="mb-1.5 text-sm font-medium">
               Drop your image here or click to browse

@@ -26,7 +26,7 @@ export function AnalysisLoader({ img }: AnalysisLoaderProps) {
           className="rounded-lg h-auto w-full"
         />
         <BorderTrail
-          className="bg-gradient-to-l from-green-300 via-green-500 to-green-300 dark:from-green-700/60 dark:via-green-500 dark:to-green-700/60"
+          className="bg-linear-to-l from-green-300 via-green-500 to-green-300 dark:from-green-700/60 dark:via-green-500 dark:to-green-700/60"
           size={120}
           transition={{
             ease: [0.5, 0.5, 0.5, 0.5],
@@ -46,7 +46,7 @@ export function AnalysisLoader({ img }: AnalysisLoaderProps) {
         />
       </div>
       <TextShimmer
-        className="text-md font-medium text-zinc-400 dark:text-zinc-500"
+        className="text-md font-normal tracking-wide text-zinc-400 dark:text-zinc-500"
         duration={2}
       >
         Analyzing your plant...

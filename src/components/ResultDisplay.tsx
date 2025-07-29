@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Tilt } from "./core/tilt";
 import { motion } from "framer-motion";
 import {
   Tooltip,
@@ -48,7 +47,7 @@ export function ResultDisplay({ plantAnalysis, img }: ResultDisplayProps) {
   const canLearnMore = diseaseData[diagnosisKey] !== undefined;
 
   return (
-    <div className="flex w-full flex-col overflow-hidden rounded-xl border bg-zinc-100/70 dark:border-zinc-800 dark:bg-zinc-900/80 backdrop-blur-sm transition-all duration-300">
+    <div className="flex w-full flex-col overflow-hidden rounded-xl border bg-zinc-100/70 dark:border-zinc-800 dark:bg-zinc-900/80 backdrop-blur-xs transition-all duration-300">
       <Image
         src={URL.createObjectURL(img)}
         alt="Analyzed plant"
