@@ -1,121 +1,183 @@
-"use client"
+"use client";
 
-import Image from "next/image";
-import { Plants } from "@/app/util/PlantType";
-import { Card } from "./ui/card";
-import { useState, useEffect } from "react";
+import { useToast } from "@/components/ui/use-toast";
 import useSWR from "swr";
-import { useToast } from "@/components/ui/use-toast"
 import {
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "./ui/card"
+  AnimatePresence,
+  motion,
+  type Transition,
+  type Variants,
+} from "framer-motion";
+import { AnalysisLoader } from "./AnalysisLoader";
+import { ResultDisplay } from "./ResultDisplay";
+import { useState } from "react";
+import { diseaseData } from "@/lib/disease-data";
+import { Dialog, DialogContent } from "./ui/dialog";
+import { DetailsModalContent } from "./DetailsModalContent";
 
-const API_TOKEN = process.env.NEXT_PUBLIC_HUGGINFACE_API_KEY;
-
-type ResultProps = {
-    img: File;
+interface GradioOutput {
+  label: string;
+  confidences: { label: string; confidence: number }[];
 }
 
-export function ResultCard({ img }: ResultProps) {
+const customVariants: Variants = {
+  initial: { opacity: 0, scale: 0.95, y: 20 },
+  animate: { opacity: 1, scale: 1, y: 0 },
+  exit: { opacity: 0, scale: 0.95, y: -20 },
+};
 
-    const [shouldFetch, setShouldFetch] = useState(false);
-    const { toast } = useToast();
+const customTransition: Transition = {
+  type: "spring",
+  bounce: 0,
+  duration: 0.4,
+};
 
-    useEffect(() => {
-        setShouldFetch(true);
-    }, []);
+export function ResultCard({ img }: { img: File }) {
+  const { toast } = useToast();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const fetcher = async (url: string) => {
+  const fetcher = async (url: string) => {
+    const formData = new FormData();
+    formData.append("image", img);
+    const response = await fetch(url, { method: "POST", body: formData });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        errorData.error || `Request failed with status ${response.status}`
+      );
+    }
+    return response.json();
+  };
 
-        const response = await fetch(
-            url,
-            {
-                headers: { Authorization: `Bearer ${API_TOKEN}` },
-                method: "POST",
-                body: img,
-            }
-        );
+  const key = img ? `/api/analyze?name=${img.name}&size=${img.size}` : null;
+  const { data, error, isLoading } = useSWR<GradioOutput>(key, fetcher, {
+    shouldRetryOnError: false,
+    onError: (err) => {
+      toast({
+        variant: "destructive",
+        title: "Analysis Failed",
+        description: err.message,
+      });
+    },
+  });
 
-        if (response.status === 503) {
-            toast({
-                title: "Uh oh! Something went wrong.",
-                description: "Try Again. Model is currently loading...",
-            })
+  const getPlantAnalysis = () => {
+    if (!data || !data.confidences || data.confidences.length === 0)
+      return null;
 
-            return;
-        }
-        else if (!response.ok) {
-            throw new Error('An error occurred while fetching the data. Code: ' + response.status);
-        }
+    const topPrediction = data.confidences[0];
+    const score = topPrediction.confidence;
+    const label = topPrediction.label;
 
-        const data = await response.json();
+    let name = "";
+    let diagnosis = "";
 
-        const [first, ...rest] = data[0].label.split("_");
-        const score = data[0].score.toFixed(4);
+    if (label.includes("___")) {
+      const parts = label.split("___");
+      name = parts[0].replace(/_/g, " ");
+      diagnosis = parts[1].replace(/_/g, " ");
+    } else {
+      const parts = label.split("_");
+      name = parts[0];
+      diagnosis = parts.slice(1).join(" ");
+    }
 
-        const plantAnalysis: Plants = {
-            name: first,
-            diagnosis: rest.join("").replace(/(^\w{1})|(\s+\w{1})/g, (letter: string) => letter.toUpperCase()),
-            status: "Success",
-            score,
-            accuracy: score > 0.7 ? "High" : "Low"
-        }
-        return plantAnalysis;
-    };
-
-
-    const { data, error } = useSWR(shouldFetch ? "https://api-inference.huggingface.co/models/surgeonwz/plant-village" : null, fetcher, {
-        shouldRetryOnError: true,
-        onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
-            //if (error.status === 404) return
-            console.log(error.status);
-            if (retryCount >= 8) return
-            setTimeout(() => revalidate({ retryCount }), 3000)
-        },
-        suspense: true
+    const otherPredictions = data.confidences.slice(1, 3).map((p) => {
+      let predName, predDiag;
+      if (p.label.includes("___")) {
+        [predName, predDiag] = p.label.split("___");
+      } else {
+        const parts = p.label.split("_");
+        predName = parts[0];
+        predDiag = parts.slice(1).join(" ");
+      }
+      const formattedLabel = `${predName.replace(
+        /_/g,
+        " "
+      )}: ${predDiag.replace(/_/g, " ")}`;
+      return {
+        label: formattedLabel.charAt(0).toUpperCase() + formattedLabel.slice(1),
+        confidence: p.confidence,
+      };
     });
 
-    if (error) return <div>`Request Failed: ${error}`</div>;
+    return {
+      name,
+      diagnosis,
+      accuracy: score > 0.7 ? "High" : score > 0.4 ? "Medium" : "Low",
+      score: score,
+      otherPredictions,
+    };
+  };
 
-    console.log(data);
+  const plantAnalysis = getPlantAnalysis();
+  const diagnosisKey =
+    plantAnalysis?.diagnosis.toLowerCase().replace(/\s/g, "") || "";
+  const detailsData = diseaseData[diagnosisKey];
 
-    return (
-        <>
-            {data && (
-                <Card className="w-[512px] border bg-card dark:border-border">
-                    <CardHeader>
-                        <CardTitle>Result</CardTitle>
-                    </CardHeader>
-                    <div className="flex justify-center">
-                        <Image
-                            alt="Plant Image preview"
-                            src={URL.createObjectURL(img)}
-                            width={256}
-                            height={256}
-                            style={{
-                                borderRadius: '0.5rem',
-                                marginTop: '1.5rem',
-                                marginBottom: '1.5rem'
-                            }}
-                        />
-                    </div>
-                    <CardContent className="bg-secondary dark:bg-secondary mx-4 mb-4 rounded-lg">
-                        <div className="pt-4 flex justify-between items-center w-full">
-                            <div>
-                                <p className="text-sm font-medium">{data.name}</p>
-                                <p className="text-md font-semibold">{data.diagnosis}</p>
-                            </div>
-                            <div>
-                                <p className="text-sm font-medium">Reliability</p>
-                                <p className="text-sm">{data.accuracy}</p>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card >
-            )}
-        </>
-    )
+  return (
+    <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+      <div className="flex flex-col items-center justify-center w-full min-h-[400px]">
+        <AnimatePresence mode="wait">
+          {isLoading ? (
+            <motion.div
+              key="loader"
+              variants={customVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={customTransition}
+            >
+              <AnalysisLoader img={img} />
+            </motion.div>
+          ) : error ? (
+            <motion.div
+              key="error"
+              variants={customVariants}
+              initial="initial"
+              animate="animate"
+            >
+              <div className="text-red-500 text-center p-4">
+                Error: {error.message}
+              </div>
+            </motion.div>
+          ) : plantAnalysis ? (
+            <motion.div
+              key="result"
+              variants={customVariants}
+              initial="initial"
+              animate="animate"
+              transition={customTransition}
+              className="flex flex-col items-center gap-6 max-w-lg w-full"
+            >
+              <h2 className="text-xl font-semibold tracking-tight">
+                Analysis Result
+              </h2>
+              <ResultDisplay plantAnalysis={plantAnalysis} img={img} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="fallback"
+              variants={customVariants}
+              initial="initial"
+              animate="animate"
+            >
+              <div className="text-red-500">
+                Could not parse analysis results.
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+      {plantAnalysis && detailsData && (
+        <DialogContent className="sm:max-w-2xl border-border">
+          <DetailsModalContent
+            plantAnalysis={plantAnalysis}
+            detailsData={detailsData}
+            img={img}
+          />
+        </DialogContent>
+      )}
+    </Dialog>
+  );
 }
