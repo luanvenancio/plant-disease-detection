@@ -29,10 +29,10 @@ export default function Home() {
           <ResultCard img={img.file as File} />
         ) : (
           <div className="text-center">
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="text-lg font-bold tracking-tight">
               Diagnose Your Plant
             </h2>
-            <p className="text-muted-foreground mt-2">
+            <p className="text-muted-foreground mt-2 text-sm">
               Upload a photo of your plant to help us identify any diseases or
               pests.
             </p>

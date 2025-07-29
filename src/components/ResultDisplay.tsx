@@ -58,9 +58,9 @@ export function ResultDisplay({ plantAnalysis, img }: ResultDisplayProps) {
       <div className="p-4">
         <div className="flex justify-between items-start gap-4">
           <div>
-            <h1 className="font-medium leading-snug text-zinc-700 dark:text-zinc-300">
+            <h2 className="font-medium leading-snug text-zinc-700 dark:text-zinc-300">
               {plantAnalysis.name}
-            </h1>
+            </h2>
             <motion.p
               className="text-lg font-semibold text-zinc-900 dark:text-zinc-50"
               initial={{ opacity: 0, y: 5 }}
