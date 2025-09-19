@@ -1,0 +1,27 @@
+{
+    "name": "AgriScan",
+    "short_name": "agriscan",
+    "theme_color": "#80b251",
+    "background_color": "#135e49",
+    "display": "standalone",
+    "orientation": "any",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/agriscan-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/agriscan-256.png",
+            "type": "image/png",
+            "sizes": "256x256"
+        },
+        {
+            "src": "/agriscan-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}
