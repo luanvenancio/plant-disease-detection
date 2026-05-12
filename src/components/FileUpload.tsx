@@ -102,10 +102,10 @@ export function FileUpload({ onFilesChange }: FileUploadProps) {
         ) : (
           <div className="flex flex-col items-center justify-center px-4 py-3 text-center">
             <div
-              className="bg-background mb-2 flex size-auto p-3 shrink-0 items-center justify-center rounded-full border border-border"
+              className="bg-emerald-100 dark:bg-emerald-800 mb-2 flex size-auto p-3 shrink-0 items-center justify-center rounded-full border border-emerald-200 dark:border-emerald-700"
               aria-hidden="true"
             >
-              <ImageIcon className="size-4.5 opacity-60" />
+              <ImageIcon className="size-4.5 text-forest-mint dark:text-emerald-400" />
             </div>
             <p className="mb-1.5 text-sm font-medium">
               Drop your image here or click to browse

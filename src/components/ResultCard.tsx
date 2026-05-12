@@ -7,7 +7,7 @@ import {
   motion,
   type Transition,
   type Variants,
-} from "framer-motion";
+} from "motion/react";
 import { AnalysisLoader } from "./AnalysisLoader";
 import { ResultDisplay } from "./ResultDisplay";
 import { useState } from "react";
@@ -170,7 +170,7 @@ export function ResultCard({ img }: { img: File }) {
         </AnimatePresence>
       </div>
       {plantAnalysis && detailsData && (
-        <DialogContent className="sm:max-w-2xl border-border">
+        <DialogContent className="sm:max-w-2xl rounded-xl glass dark:glass-dark border-emerald-200/50 dark:border-emerald-700/50">
           <DetailsModalContent
             plantAnalysis={plantAnalysis}
             detailsData={detailsData}

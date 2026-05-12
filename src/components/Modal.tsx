@@ -49,14 +49,14 @@ export function Modal({ handleImg, handleNewUpload }: ModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <Button className="text-white bg-violet-600 hover:bg-violet-800">
-          <PlusIcon size={20} className="mr-1" /> Scan Plant
+        <Button className="bg-forest-mint hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-all hover:shadow-xl">
+          <PlusIcon size={20} className="mr-2" /> Scan Plant
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-2xl rounded-lg dark:bg-card dark:border-border">
+      <DialogContent className="sm:max-w-2xl rounded-xl glass dark:glass-dark border-emerald-200/50 dark:border-emerald-700/50">
         <DialogHeader>
-          <DialogTitle>Upload File</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-forest-deep dark:text-emerald-200">Upload File</DialogTitle>
+          <DialogDescription className="text-emerald-700 dark:text-emerald-300">
             Upload a photo of your plant to help us identify any diseases or
             pests.
           </DialogDescription>
@@ -64,7 +64,7 @@ export function Modal({ handleImg, handleNewUpload }: ModalProps) {
         <FileUpload onFilesChange={handleFileChange} />
         <DialogFooter>
           <Button
-            className="text-white bg-violet-600 hover:bg-violet-800"
+            className="bg-forest-mint hover:bg-emerald-600 text-white font-semibold px-6 py-2 rounded-lg"
             onClick={handleAnalyze}
             disabled={!file}
             type="submit"
